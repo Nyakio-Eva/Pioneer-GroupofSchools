@@ -21,10 +21,10 @@ const LandingPage: React.FC = () => {
   // Slider images - using placeholder images for testing
   const slides: Slide[] = [
     { id: "slider1", src: "/pgosslider1.webp", alt: "School Campus 1" },
-    { id: "slider2", src: "/pgosslider2.webp", alt: "School Campus 2" },
-    { id: "slider3", src: "/pgosslider3.webp", alt: "School Campus 3" },
-    { id: "slider4", src: "/pgosslider4.webp", alt: "School Campus 4" },
     { id: "slider5", src: "/pgosslider5.webp", alt: "School Campus 5" },
+    { id: "slider2", src: "/pgosslider2.webp", alt: "School Campus 2" }, 
+    { id: "slider4", src: "/pgosslider4.webp", alt: "School Campus 4" },  
+    { id: "slider3", src: "/pgosslider3.webp", alt: "School Campus 3" },
     { id: "slider6", src: "/pgosslider6.webp", alt: "School Campus 6" },
   ];
 
@@ -35,35 +35,35 @@ const LandingPage: React.FC = () => {
       name: 'St Paul Thomas Academy',
       logo: '/stplogo.webp',
       url: 'https://www.stpaulthomasacademy.co.ke/',
-      buttonText: 'Explore St Paul Thomas Academy'
+      buttonText: 'Explore Primary School'
     },
     {
       id: 'pioneer-girls-junior',
       name: 'Pioneer Girls Junior Academy',
       logo: '/pgjalogo.webp',
       url: 'https://www.pioneergirlsjunioracademy.co.ke/',
-      buttonText: 'Explore Pioneer Girls Junior academy'
+      buttonText: 'Explore Junior School'
     },
     {
       id: 'pioneer-junior',
       name: 'Pioneer Junior Academy',
       logo: '/pjslogo.webp',
       url: 'https://www.pioneerjunioracademy.co.ke/',
-      buttonText: 'Explore Pioneer Junior Academy'
+      buttonText: 'Explore Junior School'
     },
     {
       id: 'pioneer-girls',
       name: 'Pioneer Girls School',
       logo: '/pgslogo.webp',
       url: 'https://www.pioneergirlsschool.co.ke/',
-      buttonText: 'Explore Pioneer Girls School'
+      buttonText: 'Explore Senior School'
     },
     {
       id: 'pioneer',
       name: 'Pioneer School',
       logo: '/pslogo.webp',
       url: 'https://www.pioneerschools.ac.ke/',
-      buttonText: 'Explore Pioneer School'
+      buttonText: 'Explore Senior School'
     }
   ];
 
@@ -77,7 +77,7 @@ const LandingPage: React.FC = () => {
       <section className="relative w-full">
         <div className="container-fluid py-1">
           {/* Swiper Carousel */}
-          <div className="relative w-full lg:h-[500px] overflow-hidden rounded-b-3xl shadow-2xl">
+          <div className="relative w-full h-[300px] sm:h-[350px] md:h-[400px] lg:h-[500px] overflow-hidden rounded-b-3xl shadow-2xl">
             <Swiper
               modules={[Navigation, Pagination, Autoplay, EffectCoverflow]}
               spaceBetween={30}
@@ -85,7 +85,7 @@ const LandingPage: React.FC = () => {
               centeredSlides={true}
               loop={true}
               autoplay={{
-                delay: 5000,
+                delay: 10000,
                 disableOnInteraction: false,
               }}
               pagination={{
@@ -102,6 +102,10 @@ const LandingPage: React.FC = () => {
                 slideShadows: true,
               }}
               breakpoints={{
+                0: {
+                  slidesPerView: 1,
+                  spaceBetween: 10,
+                },
                 640: {
                   slidesPerView: 1.2,
                   spaceBetween: 20,
@@ -125,32 +129,32 @@ const LandingPage: React.FC = () => {
                       alt={slide.alt}
                       className="w-full h-full object-contain"
                     />
-                    
                   </div>
                 </SwiperSlide>
               ))}
             </Swiper>
           </div>
         </div>
+
       </section>
 
-      {/* Schools Section */}
-      <section className="py-10 sm:py-12 lg:py-14 px-4">
+      <section className="py-8 sm:py-10 lg:py-12 px-4">
         <div className="w-full">
           {/* Schools Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-5  gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-5 gap-6 lg:gap-8">
             {schools.map((school) => (
-              <div
+              <div 
                 key={school.id}
-                className="group bg-[#083056] rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:scale-105"
+                onClick={ () => handleSchoolClick(school.url)}
+                 className="group bg-[#083056] rounded-2xl p-4 shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 hover:scale-105 block"
               >
                 {/* School Logo */}
-                <div className="flex justify-center mb-4">
-                  <div className="w-auto h-32 overflow-hidden shadow-lg group-hover:shadow-xl transition-shadow duration-300">
+                <div className="flex justify-center mb-4 relative">
+                  <div className="w-auto h-32 shadow-lg group-hover:shadow-xl transition duration-300 relative">
                     <img
                       src={school.logo}
                       alt={`${school.name} logo`}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300 relative z-10"
                     />
                   </div>
                 </div>
@@ -160,18 +164,18 @@ const LandingPage: React.FC = () => {
                   {school.name}
                 </h3>
 
-                {/* Enter Button */}
-                <button
-                  onClick={() => handleSchoolClick(school.url)}
-                  className="w-full bg-transparent border border-[#f4a025] hover:from-orange-500 hover:to-orange-600 text-white leading-compact font-light py-3 px-4 transition-all duration-300 transform hover:scale-105 hover:shadow-lg text-md sm:text-base whitespace-nowrap"
-                >
-                  {school.buttonText}
-                </button>
+                {/* Styled as Button */}
+                <div className="flex justify-center">
+                  <div className="bg-transparent border border-[#f4a025] text-white font-light py-2 px-6 transition-all duration-300 transform group-hover:scale-105 group-hover:shadow-lg text-md sm:text-base whitespace-nowrap text-center rounded-md">
+                    {school.buttonText}
+                  </div>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
+
 
       {/* Footer */}
       <footer className="bg-[#083056] text-white py-2 bottom-0">
@@ -204,7 +208,7 @@ const LandingPage: React.FC = () => {
           
           .swiper-button-next:after,
           .swiper-button-prev:after {
-            font-size: 20px !important;
+            font-size: 10px !important;
           }
           
           .swiper-pagination {
@@ -213,9 +217,9 @@ const LandingPage: React.FC = () => {
           
           .swiper-button-next,
           .swiper-button-prev {
-            background: rgba(8, 48, 86, 0.8);
-            width: 40px;
-            height: 40px;
+            background: rgba(8, 48, 86, 0.55);
+            width: 30px;
+            height: 30px;
             margin-top: -20px;
             border-radius: 50%;
           }
